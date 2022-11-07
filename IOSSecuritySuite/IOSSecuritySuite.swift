@@ -10,8 +10,9 @@
 import Foundation
 import MachO
 
+@objc
 @available(iOSApplicationExtension, unavailable)
-public class IOSSecuritySuite {
+public class IOSSecuritySuite: NSObject {
 
     /**
      This type method is used to determine the true/false jailbreak status
@@ -21,6 +22,7 @@ public class IOSSecuritySuite {
      let isDeviceJailbroken: Bool = IOSSecuritySuite.amIJailbroken()
      ```
      */
+    @objc
     public static func amIJailbroken() -> Bool {
         return JailbreakChecker.amIJailbroken()
     }
@@ -73,6 +75,7 @@ public class IOSSecuritySuite {
      let runInEmulator: Bool = IOSSecuritySuite.amIRunInEmulator()
      ```
      */
+    @objc
     public static func amIRunInEmulator() -> Bool {
         return EmulatorChecker.amIRunInEmulator()
     }
@@ -85,6 +88,7 @@ public class IOSSecuritySuite {
      let amIDebugged: Bool = IOSSecuritySuite.amIDebugged()
      ```
      */
+    @objc
     public static func amIDebugged() -> Bool {
         return DebuggerChecker.amIDebugged()
     }
@@ -97,6 +101,7 @@ public class IOSSecuritySuite {
      IOSSecuritySuite.denyDebugger()
      ```
      */
+    @objc
     public static func denyDebugger() {
         return DebuggerChecker.denyDebugger()
     }
@@ -129,6 +134,7 @@ public class IOSSecuritySuite {
      let amIReverseEngineered: Bool = IOSSecuritySuite.amIReverseEngineered()
      ```
      */
+    @objc
     public static func amIReverseEngineered() -> Bool {
         return ReverseEngineeringToolsChecker.amIReverseEngineered()
     }
@@ -148,6 +154,7 @@ public class IOSSecuritySuite {
     let amIRuntimeHook: Bool = amIRuntimeHook(dyldWhiteList: dylds, detectionClass: SomeClass.self, selector: #selector(SomeClass.someFunction), isClassMethod: false)
     ```
      */
+    @objc
     public static func amIRuntimeHooked(dyldWhiteList: [String], detectionClass: AnyClass, selector: Selector, isClassMethod: Bool) -> Bool {
         return RuntimeHookChecker.amIRuntimeHook(dyldWhiteList: dyldWhiteList, detectionClass: detectionClass, selector: selector, isClassMethod: isClassMethod)
     }
@@ -160,6 +167,7 @@ public class IOSSecuritySuite {
     let amIProxied: Bool = IOSSecuritySuite.amIProxied()
     ```
      */
+    @objc
     public static func amIProxied() -> Bool {
         return ProxyChecker.amIProxied()
     }
@@ -183,6 +191,7 @@ public extension IOSSecuritySuite {
     let amIMSHookFunction: Bool = amIMSHookFunction(func_addr)
     ```
     */
+    @objc
     static func amIMSHooked(_ functionAddress: UnsafeMutableRawPointer) -> Bool {
         return MSHookFunctionChecker.amIMSHooked(functionAddress)
     }
@@ -207,6 +216,7 @@ public extension IOSSecuritySuite {
     }
     ```
     */
+    @objc
     static func denyMSHook(_ functionAddress: UnsafeMutableRawPointer) -> UnsafeMutableRawPointer? {
         return MSHookFunctionChecker.denyMSHook(functionAddress)
     }
@@ -223,6 +233,7 @@ public extension IOSSecuritySuite {
     abort()
     ```
      */
+    @objc
     static func denySymbolHook(_ symbol: String) {
         FishHookChecker.denyFishHook(symbol)
     }
@@ -243,6 +254,7 @@ public extension IOSSecuritySuite {
     }
     ```
      */
+    @objc
     static func denySymbolHook(_ symbol: String, at image: UnsafePointer<mach_header>, imageSlide slide: Int) {
         FishHookChecker.denyFishHook(symbol, at: image, imageSlide: slide)
     }
@@ -268,6 +280,7 @@ public extension IOSSecuritySuite {
      - Parameter target: The target image
      - Returns: A hash value of the executable file.
      */
+    @objc
     static func getMachOFileHashValue(_ target: IntegrityCheckerImageTarget = .default) -> String? {
         return IntegrityChecker.getMachOFileHashValue(target)
     }
@@ -287,6 +300,7 @@ public extension IOSSecuritySuite {
      - Parameter target: The target image
      - Returns: An Array with all loaded dylib names
     */
+    @objc
     static func findLoadedDylibs(_ target: IntegrityCheckerImageTarget = .default) -> [String]? {
         return IntegrityChecker.findLoadedDylibs(target)
     }
@@ -306,10 +320,12 @@ public extension IOSSecuritySuite {
     let hasBreakpoint: Bool = IOSSecuritySuite.hasBreakpointAt(func_addr, functionSize: nil)
     ```
     */
+    @objc
     static func hasBreakpointAt(_ functionAddr: UnsafeRawPointer, functionSize: vm_size_t?) -> Bool {
         return DebuggerChecker.hasBreakpointAt(functionAddr, functionSize: functionSize)
     }
-    
+
+    @objc
     static func hasWatchpoint() -> Bool {
         return DebuggerChecker.hasWatchpoint()
     }
