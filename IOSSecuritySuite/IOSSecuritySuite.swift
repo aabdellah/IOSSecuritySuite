@@ -280,7 +280,6 @@ public extension IOSSecuritySuite {
      - Parameter target: The target image
      - Returns: A hash value of the executable file.
      */
-    @objc
     static func getMachOFileHashValue(_ target: IntegrityCheckerImageTarget = .default) -> String? {
         return IntegrityChecker.getMachOFileHashValue(target)
     }
@@ -300,7 +299,6 @@ public extension IOSSecuritySuite {
      - Parameter target: The target image
      - Returns: An Array with all loaded dylib names
     */
-    @objc
     static func findLoadedDylibs(_ target: IntegrityCheckerImageTarget = .default) -> [String]? {
         return IntegrityChecker.findLoadedDylibs(target)
     }
@@ -320,7 +318,6 @@ public extension IOSSecuritySuite {
     let hasBreakpoint: Bool = IOSSecuritySuite.hasBreakpointAt(func_addr, functionSize: nil)
     ```
     */
-    @objc
     static func hasBreakpointAt(_ functionAddr: UnsafeRawPointer, functionSize: vm_size_t?) -> Bool {
         return DebuggerChecker.hasBreakpointAt(functionAddr, functionSize: functionSize)
     }
