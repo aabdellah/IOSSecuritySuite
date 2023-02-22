@@ -47,6 +47,11 @@ public class IOSSecuritySuite: NSObject {
     public static func amIJailbrokenWithFailMessage() -> (jailbroken: Bool, failMessage: String) {
         return JailbreakChecker.amIJailbrokenWithFailMessage()
     }
+    
+    @objc
+    public static func amIJailbrokenFailMessage() -> String {
+        return JailbreakChecker.amIJailbrokenWithFailMessage().failMessage
+    }
 
     /**
     This type method is used to determine the jailbreak status with a list of failed checks
@@ -156,6 +161,11 @@ public class IOSSecuritySuite: NSObject {
      */
     public static func amIReverseEngineeredWithFailedChecks() -> (reverseEngineered: Bool, failedChecks: [FailedCheckType]) {
         return ReverseEngineeringToolsChecker.amIReverseEngineeredWithFailedChecks()
+    }
+    
+    @objc
+    public static func amIReverseEngineeredFailedChecks() -> [String] {
+        return ReverseEngineeringToolsChecker.amIReverseEngineeredWithFailedChecks().failedChecks.map { $0.failMessage }
     }
       
     /**
