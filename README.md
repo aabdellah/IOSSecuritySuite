@@ -42,6 +42,10 @@ After adding ISS to your project, you will also need to update your main Info.pl
 </array>
 ```
 
+### Notice
+
+iOS Security Suite is meant to be used on iOS/iPadOS. It should not be used on Macs with Apple Silicon.
+
 ## How to use
 
 ### Jailbreak detector module
@@ -97,8 +101,24 @@ let runInEmulator: Bool = IOSSecuritySuite.amIRunInEmulator()
 ```
 
 ### Reverse engineering tools detector module
+
+* **The simplest method** returns True/False if you just want to know if the device has evidence of reverse engineering
+
 ```Swift
-let amIReverseEngineered: Bool = IOSSecuritySuite.amIReverseEngineered()
+if IOSSecuritySuite.amIReverseEngineered() {
+  print("This device has evidence of reverse engineering")
+} else {
+  print("This device hasn't evidence of reverse engineering")
+}
+```
+
+* **Verbose & filterable**, if you also want the list of checks done
+
+```Swift
+let reverseStatus = IOSSecuritySuite.amIReverseEngineeredWithFailedChecks()
+if reverseStatus.reverseEngineered {
+   // check for reverseStatus.failedChecks for more details
+}
 ```
 
 ### System proxy detector module
@@ -253,6 +273,8 @@ Yes, please! If you have a better idea or you just want to improve this project,
 * [TannerJin](https://github.com/TannerJin) for MSHook, RuntimeHook, SymbolHook and Watchpoint Detection modules
 * [NikoXu](https://github.com/NikoXu) for adding file integrity module
 * [hellpf](https://github.com/hellpf) for fixing a dangling socket problem
+* [Ant-tree](https://github.com/Ant-tree) for improving hooking resistence
+* [izmcm](https://github.com/izmcm) for implementing the `amIReverseEngineeredWithFailedChecks()` method
 
 ## TODO
 
