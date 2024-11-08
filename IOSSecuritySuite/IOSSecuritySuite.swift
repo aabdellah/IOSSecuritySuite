@@ -13,7 +13,7 @@ import MachO
 /// Main class that encompasses library functionalities
 @objc
 @available(iOSApplicationExtension, unavailable)
-public class IOSSecuritySuite {
+public class IOSSecuritySuite: NSObject {
   /// This type method is used to determine the true/false jailbreak status
   ///
   /// Usage example
