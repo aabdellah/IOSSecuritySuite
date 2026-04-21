@@ -175,12 +175,12 @@ public extension BNRK {
   }
 
   /// Originally `getMachOFileHashValue` — SHA256 of the image's `__TEXT.__text`.
-  static func fingerprint(_ target: IntegrityCheckerImageTarget = .default) -> String? {
+  static func fingerprint(_ target: ImageRef = .default) -> String? {
     return I5.getMachOFileHashValue(target)
   }
 
   /// Originally `findLoadedDylibs`.
-  static func listImages(_ target: IntegrityCheckerImageTarget = .default) -> [String]? {
+  static func listImages(_ target: ImageRef = .default) -> [String]? {
     return I5.findLoadedDylibs(target)
   }
 

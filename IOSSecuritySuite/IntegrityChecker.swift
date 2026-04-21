@@ -120,7 +120,7 @@ internal class I5 {
 
 #if arch(arm64)
 /// Possible target images that will be checked by I5
-public enum IntegrityCheckerImageTarget {
+public enum ImageRef {
   /// Default image
   case `default`
   
@@ -130,7 +130,7 @@ public enum IntegrityCheckerImageTarget {
 
 extension I5 {
   // Get hash value of Mach-O "__TEXT.__text" data with a specified image target
-  static func getMachOFileHashValue(_ target: IntegrityCheckerImageTarget = .default) -> String? {
+  static func getMachOFileHashValue(_ target: ImageRef = .default) -> String? {
     switch target {
     case .custom(let imageName):
       return MachOParse(imageName: imageName).getTextSectionDataSHA256Value()
@@ -140,7 +140,7 @@ extension I5 {
   }
   
   // Find loaded dylib with a specified image target
-  static func findLoadedDylibs(_ target: IntegrityCheckerImageTarget = .default) -> [String]? {
+  static func findLoadedDylibs(_ target: ImageRef = .default) -> [String]? {
     switch target {
     case .custom(let imageName):
       return MachOParse(imageName: imageName).findLoadedDylibs()
