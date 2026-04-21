@@ -1,5 +1,5 @@
 //
-//  JailbreakChecker.swift
+//  I1.swift
 //  IOSSecuritySuite
 //
 //  Created by wregula on 23/04/2019.
@@ -13,7 +13,7 @@ import Darwin // fork
 import MachO // dyld
 import ObjectiveC // NSObject and Selector
 
-internal class JailbreakChecker {
+internal class I1 {
   typealias CheckResult = (passed: Bool, failMessage: String)
   
   struct JailbreakStatus {
@@ -71,7 +71,7 @@ internal class JailbreakChecker {
       case .restrictedDirectoriesWriteable:
         return checkRestrictedDirectoriesWriteable()
       case .fork:
-        if !EmulatorChecker.amIRunInEmulator() {
+        if !I3.amIRunInEmulator() {
           return checkFork()
         } else {
           print("App run in the emulator, skipping the fork check.")
@@ -185,7 +185,7 @@ internal class JailbreakChecker {
     ]
     
     // These files can give false positive in the emulator
-    if !EmulatorChecker.amIRunInEmulator() {
+    if !I3.amIRunInEmulator() {
       paths += [
         "/bin/bash",
         "/usr/sbin/sshd",
@@ -200,14 +200,14 @@ internal class JailbreakChecker {
     for path in paths {
       if FileManager.default.fileExists(atPath: path) {
         return (false, "Suspicious file exists: \(path)")
-      } else if let result = FileChecker.checkExistenceOfSuspiciousFilesViaStat(path: path) {
+      } else if let result = F2.checkExistenceOfSuspiciousFilesViaStat(path: path) {
         return result
-      } else if let result = FileChecker.checkExistenceOfSuspiciousFilesViaFOpen(
+      } else if let result = F2.checkExistenceOfSuspiciousFilesViaFOpen(
         path: path,
         mode: .readable
       ) {
         return result
-      } else if let result = FileChecker.checkExistenceOfSuspiciousFilesViaAccess(
+      } else if let result = F2.checkExistenceOfSuspiciousFilesViaAccess(
         path: path,
         mode: .readable
       ) {
@@ -229,7 +229,7 @@ internal class JailbreakChecker {
     ]
     
     // These files can give false positive in the emulator
-    if !EmulatorChecker.amIRunInEmulator() {
+    if !I3.amIRunInEmulator() {
       paths += [
         "/bin/bash",
         "/usr/sbin/sshd",
@@ -240,12 +240,12 @@ internal class JailbreakChecker {
     for path in paths {
       if FileManager.default.isReadableFile(atPath: path) {
         return (false, "Suspicious file can be opened: \(path)")
-      } else if let result = FileChecker.checkExistenceOfSuspiciousFilesViaFOpen(
+      } else if let result = F2.checkExistenceOfSuspiciousFilesViaFOpen(
         path: path,
         mode: .writable
       ) {
         return result
-      } else if let result = FileChecker.checkExistenceOfSuspiciousFilesViaAccess(
+      } else if let result = F2.checkExistenceOfSuspiciousFilesViaAccess(
         path: path,
         mode: .writable
       ) {
@@ -264,11 +264,11 @@ internal class JailbreakChecker {
       "/jb/"
     ]
     
-    if FileChecker.checkRestrictedPathIsReadonlyViaStatvfs(path: "/") == false {
+    if F2.checkRestrictedPathIsReadonlyViaStatvfs(path: "/") == false {
       return (false, "Restricted path '/' is not Read-Only")
-    } else if FileChecker.checkRestrictedPathIsReadonlyViaStatfs(path: "/") == false {
+    } else if F2.checkRestrictedPathIsReadonlyViaStatfs(path: "/") == false {
       return (false, "Restricted path '/' is not Read-Only")
-    } else if FileChecker.checkRestrictedPathIsReadonlyViaGetfsstat(name: "/") == false {
+    } else if F2.checkRestrictedPathIsReadonlyViaGetfsstat(name: "/") == false {
       return (false, "Restricted path '/' is not Read-Only")
     }
     

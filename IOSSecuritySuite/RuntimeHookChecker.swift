@@ -1,5 +1,5 @@
 //
-//  RuntimeHookChecker.swift
+//  I7.swift
 //  IOSSecuritySuite
 //
 //  Created by jintao on 2020/4/24.
@@ -9,10 +9,10 @@
 import Foundation
 import MachO
 
-internal class RuntimeHookChecker {
+internal class I7 {
   static private let swiftOnceDenyFishHooK: Void = {
 #if arch(arm64)
-    FishHookChecker.denyFishHook("dladdr")
+    FH.denyFishHook("dladdr")
 #endif
   }()
   

@@ -1,5 +1,5 @@
 //
-//  EmulatorChecker.swift
+//  I3.swift
 //  IOSSecuritySuite
 //
 //  Created by wregula on 23/04/2019.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-internal class EmulatorChecker {
+internal class I3 {
   static func amIRunInEmulator() -> Bool {
     return checkCompile() || checkRuntime()
   }

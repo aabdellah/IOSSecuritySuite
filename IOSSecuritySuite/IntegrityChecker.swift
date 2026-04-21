@@ -1,5 +1,5 @@
 //
-//  IntegrityChecker.swift
+//  I5.swift
 //  IOSSecuritySuite
 //
 //  Created by NikoXu on 2020/8/21.
@@ -45,7 +45,7 @@ extension FileIntegrityCheck: Explainable {
 /// Tuple with the result of integrity checks and a list of failed checks
 public typealias FileIntegrityCheckResult = (result: Bool, hitChecks: [FileIntegrityCheck])
 
-internal class IntegrityChecker {
+internal class I5 {
   // Check if the application has been tampered with the specified checks
   static func amITampered(_ checks: [FileIntegrityCheck]) -> FileIntegrityCheckResult {
     var hitChecks: [FileIntegrityCheck] = []
@@ -119,7 +119,7 @@ internal class IntegrityChecker {
 }
 
 #if arch(arm64)
-/// Possible target images that will be checked by IntegrityChecker
+/// Possible target images that will be checked by I5
 public enum IntegrityCheckerImageTarget {
   /// Default image
   case `default`
@@ -128,7 +128,7 @@ public enum IntegrityCheckerImageTarget {
   case custom(String)
 }
 
-extension IntegrityChecker {
+extension I5 {
   // Get hash value of Mach-O "__TEXT.__text" data with a specified image target
   static func getMachOFileHashValue(_ target: IntegrityCheckerImageTarget = .default) -> String? {
     switch target {

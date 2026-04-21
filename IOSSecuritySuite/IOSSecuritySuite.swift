@@ -47,58 +47,58 @@ public class BNRK: NSObject {
   /// Originally `amIJailbroken` — jailbreak true/false.
   @objc
   public static func flagA() -> Bool {
-    return JailbreakChecker.amIJailbroken()
+    return I1.amIJailbroken()
   }
 
   /// Originally `amIJailbrokenWithFailMessage` — jailbreak status + first-fail message.
   public static func flagAWithMsg() -> (jailbroken: Bool, failMessage: String) {
-    return JailbreakChecker.amIJailbrokenWithFailMessage()
+    return I1.amIJailbrokenWithFailMessage()
   }
 
   /// Originally `amIJailbrokenWithFailedChecks` — jailbreak status + list of failed checks.
   public static func flagAWithChecks() -> (jailbroken: Bool,
                                             failedChecks: [FailedCheckType]) {
-    return JailbreakChecker.amIJailbrokenWithFailedChecks()
+    return I1.amIJailbrokenWithFailedChecks()
   }
 
   /// Originally `amIRunInEmulator`.
   @objc
   public static func flagB() -> Bool {
-    return EmulatorChecker.amIRunInEmulator()
+    return I3.amIRunInEmulator()
   }
 
   /// Originally `amIDebugged`.
   @objc
   public static func flagC() -> Bool {
-    return DebuggerChecker.amIDebugged()
+    return I2.amIDebugged()
   }
 
   /// Originally `denyDebugger` — PT_DENY_ATTACH installer.
   @objc
   public static func pinDbg() {
-    return DebuggerChecker.denyDebugger()
+    return I2.denyDebugger()
   }
 
   /// Originally `isParentPidUnexpected`.
   public static func flagPP() -> Bool {
-    return DebuggerChecker.isParentPidUnexpected()
+    return I2.isParentPidUnexpected()
   }
 
   /// Originally `amITampered`.
   public static func flagT(_ checks: [FileIntegrityCheck]) -> FileIntegrityCheckResult {
-    return IntegrityChecker.amITampered(checks)
+    return I5.amITampered(checks)
   }
 
   /// Originally `amIReverseEngineered`.
   @objc
   public static func flagD() -> Bool {
-    return ReverseEngineeringToolsChecker.amIReverseEngineered()
+    return I4.amIReverseEngineered()
   }
 
   /// Originally `amIReverseEngineeredWithFailedChecks`.
   public static func flagDWithChecks() -> (reverseEngineered: Bool,
                                             failedChecks: [FailedCheckType]) {
-    return ReverseEngineeringToolsChecker.amIReverseEngineeredWithFailedChecks()
+    return I4.amIReverseEngineeredWithFailedChecks()
   }
 
   /// Originally `amIRuntimeHooked(dyldWhiteList:)` — deprecated overload.
@@ -110,7 +110,7 @@ public class BNRK: NSObject {
     selector: Selector,
     isClassMethod: Bool
   ) -> Bool {
-    return RuntimeHookChecker.amIRuntimeHook(
+    return I7.amIRuntimeHook(
       dyldAllowList: dyldWhiteList,
       detectionClass: detectionClass,
       selector: selector,
@@ -126,7 +126,7 @@ public class BNRK: NSObject {
     selector: Selector,
     isClassMethod: Bool
   ) -> Bool {
-    return RuntimeHookChecker.amIRuntimeHook(
+    return I7.amIRuntimeHook(
       dyldAllowList: dyldAllowList,
       detectionClass: detectionClass,
       selector: selector,
@@ -137,13 +137,13 @@ public class BNRK: NSObject {
   /// Originally `amIProxied`.
   @objc
   public static func flagE() -> Bool {
-    return ProxyChecker.amIProxied()
+    return P1.amIProxied()
   }
 
   /// Originally `amIInLockdownMode` — iOS 16+ only.
   @available(iOS 16, *)
   public static func flagL() -> Bool {
-    return ModesChecker.amIInLockdownMode()
+    return M1.amIInLockdownMode()
   }
 }
 
@@ -152,17 +152,17 @@ public class BNRK: NSObject {
 public extension BNRK {
   /// Originally `amIMSHooked` — MSHook check for a function address.
   static func flagM(_ functionAddress: UnsafeMutableRawPointer) -> Bool {
-    return MSHookFunctionChecker.amIMSHooked(functionAddress)
+    return I6.amIMSHooked(functionAddress)
   }
 
   /// Originally `denyMSHook` — returns original trampoline if MSHook patched the function.
   static func pinMS(_ functionAddress: UnsafeMutableRawPointer) -> UnsafeMutableRawPointer? {
-    return MSHookFunctionChecker.denyMSHook(functionAddress)
+    return I6.denyMSHook(functionAddress)
   }
 
   /// Originally `denySymbolHook` — fishhook rebind.
   static func pinSH(_ symbol: String) {
-    FishHookChecker.denyFishHook(symbol)
+    FH.denyFishHook(symbol)
   }
 
   /// Originally `denySymbolHook(_:at:imageSlide:)` — image-scoped fishhook rebind.
@@ -171,27 +171,27 @@ public extension BNRK {
     at image: UnsafePointer<mach_header>,
     imageSlide slide: Int
   ) {
-    FishHookChecker.denyFishHook(symbol, at: image, imageSlide: slide)
+    FH.denyFishHook(symbol, at: image, imageSlide: slide)
   }
 
   /// Originally `getMachOFileHashValue` — SHA256 of the image's `__TEXT.__text`.
   static func fingerprint(_ target: IntegrityCheckerImageTarget = .default) -> String? {
-    return IntegrityChecker.getMachOFileHashValue(target)
+    return I5.getMachOFileHashValue(target)
   }
 
   /// Originally `findLoadedDylibs`.
   static func listImages(_ target: IntegrityCheckerImageTarget = .default) -> [String]? {
-    return IntegrityChecker.findLoadedDylibs(target)
+    return I5.findLoadedDylibs(target)
   }
 
   /// Originally `hasBreakpointAt`.
   static func probeB1(_ functionAddr: UnsafeRawPointer, functionSize: vm_size_t?) -> Bool {
-    return DebuggerChecker.hasBreakpointAt(functionAddr, functionSize: functionSize)
+    return I2.hasBreakpointAt(functionAddr, functionSize: functionSize)
   }
 
   /// Originally `hasWatchpoint`.
   static func probeW1() -> Bool {
-    return DebuggerChecker.hasWatchpoint()
+    return I2.hasWatchpoint()
   }
 }
 #endif

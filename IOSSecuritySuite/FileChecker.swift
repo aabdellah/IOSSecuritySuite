@@ -8,7 +8,7 @@
 
 import Foundation
 
-internal class FileChecker {
+internal class F2 {
   typealias CheckResult = (passed: Bool, failMessage: String)
   
   /**

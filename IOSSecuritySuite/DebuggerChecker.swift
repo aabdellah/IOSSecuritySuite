@@ -1,5 +1,5 @@
 //
-//  DebuggerChecker.swift
+//  I2.swift
 //  IOSSecuritySuite
 //
 //  Created by wregula on 23/04/2019.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-internal class DebuggerChecker {
+internal class I2 {
   // https://developer.apple.com/library/archive/qa/qa1361/_index.html
   static func amIDebugged() -> Bool {
     var kinfo = kinfo_proc()

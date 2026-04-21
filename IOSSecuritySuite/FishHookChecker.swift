@@ -1,5 +1,5 @@
 //
-//  FishHookChecker.swift
+//  FH.swift
 //  IOSSecuritySuite
 //
 //  Created by jintao on 2020/4/24.
@@ -108,7 +108,7 @@ private func readSleb128(ptr: inout UnsafeMutablePointer<UInt8>, end: UnsafeMuta
   return result
 }
 
-internal class FishHookChecker {
+internal class FH {
   @inline(__always)
   static func denyFishHook(_ symbol: String) {
     for imgIndex in 0..<_dyld_image_count() {
@@ -122,15 +122,15 @@ internal class FishHookChecker {
   static func denyFishHook(_ symbol: String, at image: UnsafePointer<mach_header>, imageSlide slide: Int) {
     var symbolAddress: UnsafeMutableRawPointer?
     
-    if SymbolFound.lookSymbol(symbol, at: image, imageSlide: slide, symbolAddress: &symbolAddress), let symbolPointer = symbolAddress {
+    if SF.lookSymbol(symbol, at: image, imageSlide: slide, symbolAddress: &symbolAddress), let symbolPointer = symbolAddress {
       var oldMethod: UnsafeMutableRawPointer?
       FishHook.replaceSymbol(symbol, at: image, imageSlide: slide, newMethod: symbolPointer, oldMethod: &oldMethod)
     }
   }
 }
 
-// MARK: - SymbolFound
-internal class SymbolFound {
+// MARK: - SF
+internal class SF {
   static private let BindTypeThreadedRebase = 102
   
   @inline(__always)

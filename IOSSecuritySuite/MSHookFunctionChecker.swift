@@ -1,5 +1,5 @@
 //
-//  MSHookFunctionChecker.swift
+//  I6.swift
 //  IOSSecuritySuite
 //
 //  Created by jintao on 2020/4/24.
@@ -69,7 +69,7 @@ import Foundation
  */
 
 #if arch(arm64)
-internal class MSHookFunctionChecker {
+internal class I6 {
   // come from ARM® Architecture Reference Manual, ARMv8 for ARMv8-A architecture profile
   private enum MSHookInstruction {
     case ldr_x16

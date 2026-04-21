@@ -1,5 +1,5 @@
 //
-//  ProxyChecker.swift
+//  P1.swift
 //  IOSSecuritySuite
 //
 //  Created by Wojciech Reguła on 07/12/2020.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-internal class ProxyChecker {
+internal class P1 {
     static func amIProxied(considerVPNConnectionAsProxy: Bool = false) -> Bool {
         guard let unmanagedSettings = CFNetworkCopySystemProxySettings() else {
             return false

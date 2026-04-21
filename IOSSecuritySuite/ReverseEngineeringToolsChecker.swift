@@ -1,5 +1,5 @@
 //
-//  ReverseEngineeringToolsChecker.swift
+//  I4.swift
 //  IOSSecuritySuite
 //
 //  Created by wregula on 24/04/2019.
@@ -9,7 +9,7 @@
 import Foundation
 import MachO // dyld
 
-internal class ReverseEngineeringToolsChecker {
+internal class I4 {
   typealias CheckResult = (passed: Bool, failMessage: String)
   
   struct ReverseEngineeringToolsStatus {
