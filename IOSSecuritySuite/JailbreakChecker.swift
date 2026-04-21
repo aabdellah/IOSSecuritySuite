@@ -5,7 +5,7 @@
 //  Created by wregula on 23/04/2019.
 //  Copyright © 2019 wregula. All rights reserved.
 //
-// swiftlint:disable function_body_length type_body_length
+// swiftlint:disable function_body_length type_body_length line_length
 
 import Foundation
 import UIKit
@@ -138,7 +138,6 @@ internal class JailbreakChecker {
       "/var/lib/cydia",
       "/etc/apt",
       "/private/var/lib/apt",
-      "/private/var/Users/",
       "/var/log/apt",
       "/Applications/Cydia.app",
       "/private/var/stash",
@@ -283,7 +282,7 @@ internal class JailbreakChecker {
           atomically: true,
           encoding: String.Encoding.utf8
         )
-        // clean if succesfully written
+        // clean if successfully written
         try FileManager.default.removeItem(atPath: pathWithSomeRandom)
         return (false, "Wrote to restricted path: \(path)")
       } catch {}
@@ -335,7 +334,8 @@ internal class JailbreakChecker {
   
   private static func checkDYLD() -> CheckResult {
     let suspiciousLibraries: Set<String> = [
-      "systemhook.dylib", // Dopamine - hide jailbreak detection
+      "systemhook.dylib", // Dopamine - hide jailbreak detection https://github.com/opa334/Dopamine/blob/dc1a1a3486bb5d74b8f2ea6ada782acdc2f34d0a/Application/Dopamine/Jailbreak/DOEnvironmentManager.m#L498
+      "roothideinit.dylib",
       "SubstrateLoader.dylib",
       "SSLKillSwitch2.dylib",
       "SSLKillSwitch.dylib",

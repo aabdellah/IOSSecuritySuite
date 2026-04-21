@@ -86,7 +86,7 @@ public class IOSSecuritySuite: NSObject {
     return DebuggerChecker.amIDebugged()
   }
   
-  /// This type method is used to deny debugger and improve the application resillency
+  /// This type method is used to deny debugger and improve the application resiliency
   ///
   /// Usage example
   /// ```swift
@@ -136,6 +136,7 @@ public class IOSSecuritySuite: NSObject {
   /// let amIReverseEngineered: Bool = IOSSecuritySuite.amIReverseEngineered()
   /// ```
   /// - Returns: Bool indicating if device has reverse engineering tools (true) or not (false)
+  @objc
   public static func amIReverseEngineered() -> Bool {
     return ReverseEngineeringToolsChecker.amIReverseEngineered()
   }
@@ -180,6 +181,7 @@ public class IOSSecuritySuite: NSObject {
     *, deprecated,
      renamed: "amIRuntimeHooked(dyldAllowList:detectionClass:selector:isClassMethod:)"
   )
+  @objc
   public static func amIRuntimeHooked(
     dyldWhiteList: [String],
     detectionClass: AnyClass,
@@ -213,6 +215,7 @@ public class IOSSecuritySuite: NSObject {
   /// ```
   ///
   /// - Returns: Bool indicating if the method is being hooked (true) or not (false)
+  @objc
   public static func amIRuntimeHooked(
     dyldAllowList: [String],
     detectionClass: AnyClass,
@@ -234,6 +237,7 @@ public class IOSSecuritySuite: NSObject {
   /// let amIProxied: Bool = IOSSecuritySuite.amIProxied()
   /// ```
   /// - Returns: Bool indicating if the device has a proxy setted (true) or not (false)
+  @objc
   public static func amIProxied() -> Bool {
     return ProxyChecker.amIProxied()
   }
@@ -283,7 +287,7 @@ public extension IOSSecuritySuite {
   /// let funcAddr = unsafeBitCast(funcDenyDebugger, to: UnsafeMutableRawPointer.self)
   ///
   /// if let originalDenyDebugger = denyMSHook(funcAddr) {
-  /// // Call orignal function with 1337 as Int argument
+  /// // Call original function with 1337 as Int argument
   ///   unsafeBitCast(originalDenyDebugger, to: FunctionType.self)(1337)
   /// } else {
   ///   denyDebugger()
@@ -297,7 +301,7 @@ public extension IOSSecuritySuite {
   ///
   /// Usage example
   /// ```swift
-  /// denySymbolHook("$s10Foundation5NSLogyySS_s7CVarArg_pdtF") // Foudation's NSlog of Swift
+  /// denySymbolHook("$s10Foundation5NSLogyySS_s7CVarArg_pdtF") // Foundation's NSlog of Swift
   /// NSLog("Hello Symbol Hook")
   ///
   /// denySymbolHook("abort")
